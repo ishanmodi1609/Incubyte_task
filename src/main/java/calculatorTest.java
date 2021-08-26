@@ -41,4 +41,22 @@ public class calculatorTest {
     public void acceptCustomDelimiterSyntax(){
         Assert.assertEquals(3,calculator.add("//:\n1:2"));
     }
+
+    //This is test case made to check if custom delimiter is special regex then if some returns or not
+    @Test
+    public void customDelimiterAlsoBeSpecialRegex(){
+        Assert.assertEquals(3,calculator.add("//.\n1.2"));
+    }
+
+    //This tetcase to check if exception is raised if negative value is present in the string
+    @Test
+    public void shouldRaiseException(){
+        try {
+            calculator.add("-1,2,3");
+            Assert.fail("exception accepted");
+        }
+        catch (Exception e){
+            //exption caught
+        }
+    }
 }

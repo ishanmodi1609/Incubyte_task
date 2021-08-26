@@ -1,6 +1,7 @@
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import static org.hamcrest.Matchers.*;
 
 import  ch.lambdaj.Lambda.*;
 
@@ -26,27 +27,42 @@ public class calculator {
 
             //If string starts with '//' then we have defined our own custom delineter
             if(test.startsWith("//")){
-
-                Matcher m= Pattern.compile("//(.)\n(.*)").matcher(test);
-                m.matches();
-                CustomDelimiter=m.group(1);
-                nums=m.group(2);
-                tokens=nums.split(CustomDelimiter);
+                tokens=splitOnCustomDelimiter(test);
             }
             else{
-
-                System.out.println("Inside2");
                 tokens=test.split(",|\n");
             }
 
             //We convert the array of token into the List of integer
             List<Integer> numbers=convert(tokens);
 
+            //This list contains negative Integers which are filtered out
+
+            List<Integer> negative = filter(0,numbers);
+
+            //If atlease one negative number is in list it throws exception
+            if(negative.size()>0){
+                throw new RuntimeException();
+            }
             //Return the sum of all the numbers present in the list
             return sum(numbers);
         }
     }
+    //This function is made to split the number form string having custom delimiter
+    private static String[] splitOnCustomDelimiter(String test){
 
+        String nums="";
+        String tokens[];
+        String CustomDelimiter="";
+
+        Matcher m= Pattern.compile("//(.)\n(.*)").matcher(test);
+        m.matches();
+        CustomDelimiter=m.group(1);
+        nums=m.group(2);
+        tokens=nums.split(Pattern.quote(CustomDelimiter));
+
+        return tokens;
+    }
     //This function converts the tokens of string into list of integer then returs it
     private static List<Integer> convert(String tokens[]){
 
@@ -77,5 +93,17 @@ public class calculator {
 
     private static int toInt(String s) throws NumberFormatException{
         return Integer.parseInt(s);
+    }
+
+    private  static  List<Integer> filter(int lessThan,List<Integer>numbers){
+
+        List<Integer>negative=new ArrayList<>();
+
+        for(int i:numbers){
+            if(i<0)
+                negative.add(i);
+        }
+
+        return negative;
     }
 }
