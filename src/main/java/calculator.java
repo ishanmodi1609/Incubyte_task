@@ -13,7 +13,7 @@ public class calculator {
             //This checks if string is empty than return 0
             return 0;
         }
-        else if(test.contains(",")){
+        else{
 
             //If string contains elimiter than it first converts string into 2 tokens among delimiter
             // Ex:- "1,2" this converts into tokesn "1" and "2"
@@ -24,30 +24,26 @@ public class calculator {
             String CustomDelimiter="";
             String tokens[];
 
-            //If string starts with '//' then we have deined our own custom delineter
+            //If string starts with '//' then we have defined our own custom delineter
             if(test.startsWith("//")){
+
                 Matcher m= Pattern.compile("//(.)\n(.*)").matcher(test);
+                m.matches();
                 CustomDelimiter=m.group(1);
                 nums=m.group(2);
                 tokens=nums.split(CustomDelimiter);
             }
             else{
-                // else it will use ',' and '\n' as a dlimiter
+
+                System.out.println("Inside2");
                 tokens=test.split(",|\n");
             }
-
-
 
             //We convert the array of token into the List of integer
             List<Integer> numbers=convert(tokens);
 
             //Return the sum of all the numbers present in the list
             return sum(numbers);
-        }
-        else{
-
-            //If string contains digit then converts string to int and then returns that int
-            return Integer.parseInt(test);
         }
     }
 
@@ -57,6 +53,7 @@ public class calculator {
         List<Integer>numbers=new ArrayList<>();
 
         for(int i=0;i<tokens.length;i++){
+            System.out.println(tokens[i]);
             numbers.add(toInt(tokens[i]));
         }
 
