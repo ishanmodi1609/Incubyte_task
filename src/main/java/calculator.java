@@ -14,12 +14,20 @@ public class calculator {
             String tokens[]=test.split(",");
 
             //both tokesn that is stored in an array gets converted into integr and then added
-            return Integer.parseInt(tokens[0])+Integer.parseInt(tokens[1]);
+            return toInt(tokens[0])+toInt(tokens[1]);
         }
         else{
 
             //If string contains digit then converts string to int and then returns that int
             return Integer.parseInt(test);
         }
+    }
+
+    //This is the method decalred private so that can used only in this file
+    //It accepts the string then converts into int
+    //If string does not contain it can throw NumberFormat exception , so throws is used with method
+
+    private static int toInt(String s) throws NumberFormatException{
+        return Integer.parseInt(s);
     }
 }

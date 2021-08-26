@@ -19,7 +19,14 @@ public class calculatorTest {
     //This is the function to add 2 numbers involved in the string
     //Ans should be sum of those 2 nummbers
     @Test
-    public void shouldReturnSumNumber(){
+    public void shouldReturnSumTwoNumber(){
         Assert.assertEquals(3,calculator.add("1,2"));
+    }
+
+    //This is the function to add 3 numbers involved in the string
+    //Ans should be sum of those 3 nummbers
+    @Test
+    public void shouldReturnSumThreeNumber(){
+        Assert.assertEquals(6,calculator.add("1,2,3"));
     }
 }
