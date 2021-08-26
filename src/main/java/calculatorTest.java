@@ -59,4 +59,10 @@ public class calculatorTest {
             Assert.assertEquals("Negatives are not allowed: -1",e.getMessage());
         }
     }
+
+    //This is test case made to check if number greater than 1000 are ignored or not
+    @Test
+    public void greaterNumberShouldGetIgnored(){
+        Assert.assertEquals(3,calculator.add("//.\n1.2.2000"));
+    }
 }

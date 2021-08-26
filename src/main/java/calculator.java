@@ -44,8 +44,11 @@ public class calculator {
             if(negative.size()>0){
                 throw new RuntimeException("Negatives are not allowed: -1");
             }
+
+            List<Integer>validNumbers=rangeNumber(numbers);
+
             //Return the sum of all the numbers present in the list
-            return sum(numbers);
+            return sum(validNumbers);
         }
     }
     //This function is made to split the number form string having custom delimiter
@@ -95,6 +98,7 @@ public class calculator {
         return Integer.parseInt(s);
     }
 
+    //This function used to extract all the numbers which are negatives and then return list containg negative number
     private  static  List<Integer> filter(int lessThan,List<Integer>numbers){
 
         List<Integer>negative=new ArrayList<>();
@@ -105,5 +109,19 @@ public class calculator {
         }
 
         return negative;
+    }
+
+    //This function works to collect all the numbers which are less than 2000
+    private  static  List<Integer> rangeNumber(List<Integer>numbers){
+
+        List<Integer>rangeNumber=new ArrayList<>();
+
+        for(int i:numbers){
+            if(i<=1000 && i>=0)
+            //    System.out.println(i);
+                rangeNumber.add(i);
+        }
+
+        return rangeNumber;
     }
 }
