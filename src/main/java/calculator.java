@@ -1,4 +1,7 @@
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import  ch.lambdaj.Lambda.*;
 
 public class calculator {
@@ -16,7 +19,24 @@ public class calculator {
             // Ex:- "1,2" this converts into tokesn "1" and "2"
             //Delimiter invloved here are ',' and '\n'
             //'|' is used for sepereating delimoters
-            String tokens[]=test.split(",|\n");
+
+            String nums="";
+            String CustomDelimiter="";
+            String tokens[];
+
+            //If string starts with '//' then we have deined our own custom delineter
+            if(test.startsWith("//")){
+                Matcher m= Pattern.compile("//(.)\n(.*)").matcher(test);
+                CustomDelimiter=m.group(1);
+                nums=m.group(2);
+                tokens=nums.split(CustomDelimiter);
+            }
+            else{
+                // else it will use ',' and '\n' as a dlimiter
+                tokens=test.split(",|\n");
+            }
+
+
 
             //We convert the array of token into the List of integer
             List<Integer> numbers=convert(tokens);

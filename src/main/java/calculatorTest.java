@@ -30,8 +30,15 @@ public class calculatorTest {
         Assert.assertEquals(6,calculator.add("1,2,3"));
     }
 
+    //This test case is used for checking '\n' delimiter
     @Test
     public void shouldAcceptNewLineAsValidDelimiter(){
         Assert.assertEquals(6,calculator.add("1\n2,3"));
+    }
+
+    //This is test case made to check custom delimiter
+    @Test
+    public void acceptCustomDelimiterSyntax(){
+        Assert.assertEquals(3,calculator.add("//:\n1:2"));
     }
 }
