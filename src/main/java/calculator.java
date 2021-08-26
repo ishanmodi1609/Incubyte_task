@@ -14,7 +14,9 @@ public class calculator {
 
             //If string contains elimiter than it first converts string into 2 tokens among delimiter
             // Ex:- "1,2" this converts into tokesn "1" and "2"
-            String tokens[]=test.split(",");
+            //Delimiter invloved here are ',' and '\n'
+            //'|' is used for sepereating delimoters
+            String tokens[]=test.split(",|\n");
 
             //We convert the array of token into the List of integer
             List<Integer> numbers=convert(tokens);
