@@ -56,7 +56,7 @@ public class calculatorTest {
             Assert.fail("exception accepted");
         }
         catch (Exception e){
-            //exption caught
+            Assert.assertEquals("Negatives are not allowed: -1",e.getMessage());
         }
     }
 }

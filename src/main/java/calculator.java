@@ -42,7 +42,7 @@ public class calculator {
 
             //If atlease one negative number is in list it throws exception
             if(negative.size()>0){
-                throw new RuntimeException();
+                throw new RuntimeException("Negatives are not allowed: -1");
             }
             //Return the sum of all the numbers present in the list
             return sum(numbers);
