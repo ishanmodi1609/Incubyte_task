@@ -77,4 +77,11 @@ public class calculatorTest {
     public void multipleDelimeter() {
         Assert.assertEquals(6, calculator.add("//[*][%]\n1*2%3"));
     }
+
+    //This testcase deals with multiple delimiter of various lenghtd each
+    @Test
+    public void mulCustomDelWithAnyLength()
+    {
+        Assert.assertEquals(6, calculator.add("//[**][%%%%]\n1**2%%3"));
+    }
 }
