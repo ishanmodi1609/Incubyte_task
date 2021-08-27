@@ -4,6 +4,7 @@ import java.util.regex.Pattern;
 import static org.hamcrest.Matchers.*;
 
 import  ch.lambdaj.Lambda.*;
+import software.amazon.ion.SystemSymbols;
 
 public class calculator {
 
@@ -26,7 +27,10 @@ public class calculator {
             String tokens[];
 
             //If string starts with '//' then we have defined our own custom delineter
-            if(test.startsWith("//")){
+            if(test.startsWith("//[")){
+                tokens=splitOnAnyLengthCustomDelimiter(test);
+            }
+            else if(test.startsWith("//")){
                 tokens=splitOnCustomDelimiter(test);
             }
             else{
@@ -51,6 +55,39 @@ public class calculator {
             return sum(validNumbers);
         }
     }
+
+    //This function separtes the number from given string based on the first custom delimiter given in []
+    private  static  String[] splitOnAnyLengthCustomDelimiter(String test){
+
+        Matcher m = Pattern.compile("//(\\[.+\\])+\n(.*)").matcher(test);
+        m.matches();
+        String del = m.group(1);
+        String delimeters = new String();
+
+        int l = del.length(),last =0;
+        for(int i =0; i<l ; i++)
+        {
+            if(del.charAt(i) == ']' && i != l-1)
+            {
+                delimeters += del.substring(last,i);
+                delimeters += "]|";
+                last = i+1;
+
+            }
+
+            else if(i == l-1)
+                delimeters += del.substring(last,i) + "]";
+        }
+        String nums = m.group(2);
+
+        System.out.println(nums+"  "+delimeters);
+
+        String tokens[];
+
+        tokens=nums.split(delimeters);
+
+        return tokens;
+    }
     //This function is made to split the number form string having custom delimiter
     private static String[] splitOnCustomDelimiter(String test){
 
@@ -60,6 +97,7 @@ public class calculator {
 
         Matcher m= Pattern.compile("//(.)\n(.*)").matcher(test);
         m.matches();
+        System.out.println(",g1:"+m.group(1)+",g2:"+m.group(2));
         CustomDelimiter=m.group(1);
         nums=m.group(2);
         tokens=nums.split(Pattern.quote(CustomDelimiter));
@@ -69,9 +107,14 @@ public class calculator {
     //This function converts the tokens of string into list of integer then returs it
     private static List<Integer> convert(String tokens[]){
 
+        System.out.println("In cpnvert");
         List<Integer>numbers=new ArrayList<>();
 
         for(int i=0;i<tokens.length;i++){
+            if(tokens[i].isEmpty()){
+                numbers.add(0);
+                continue;
+            }
             System.out.println(tokens[i]);
             numbers.add(toInt(tokens[i]));
         }

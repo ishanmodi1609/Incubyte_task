@@ -65,4 +65,10 @@ public class calculatorTest {
     public void greaterNumberShouldGetIgnored(){
         Assert.assertEquals(3,calculator.add("//.\n1.2.2000"));
     }
+
+    //This is test case made to check on any length given custom delimiter
+    @Test
+    public void anyLengthCustomDelimiter(){
+        Assert.assertEquals(6,calculator.add("//[***]\n1***2***3"));
+    }
 }
