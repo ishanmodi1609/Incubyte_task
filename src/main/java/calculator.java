@@ -70,10 +70,8 @@ public class calculator {
             if(del.charAt(i) == ']' && i != l-1)
             {
                 delimeters += del.substring(last,i);
-                delimeters += "]";
+                delimeters += "]|";
                 last = i+1;
-
-                break;
             }
 
             else if(i == l-1)
@@ -81,7 +79,7 @@ public class calculator {
         }
         String nums = m.group(2);
 
-        System.out.println(nums+"  "+delimeters);
+        //System.out.println(nums+"  "+delimeters);
 
         String tokens[];
 
@@ -98,7 +96,6 @@ public class calculator {
 
         Matcher m= Pattern.compile("//(.)\n(.*)").matcher(test);
         m.matches();
-        System.out.println(",g1:"+m.group(1)+",g2:"+m.group(2));
         CustomDelimiter=m.group(1);
         nums=m.group(2);
         tokens=nums.split(Pattern.quote(CustomDelimiter));
@@ -108,16 +105,32 @@ public class calculator {
     //This function converts the tokens of string into list of integer then returs it
     private static List<Integer> convert(String tokens[]){
 
-        System.out.println("In cpnvert");
+        //System.out.println("In cpnvert");
         List<Integer>numbers=new ArrayList<>();
 
+        String q="";
+        int e;
+
         for(int i=0;i<tokens.length;i++){
+            System.out.println(tokens[i]);
             if(tokens[i].isEmpty()){
                 numbers.add(0);
                 continue;
             }
-            System.out.println(tokens[i]);
-            numbers.add(toInt(tokens[i]));
+
+            Matcher mx = Pattern.compile("^(\\+|-)?\\d+$").matcher(tokens[i]);
+
+            while(mx.find())
+            {
+            //    System.out.println("in");
+
+                q = mx.group();
+                e = Integer.parseInt(q);
+
+            //    System.out.println("e:"+e);
+                numbers.add(e);
+            }
+
         }
 
         return numbers;
