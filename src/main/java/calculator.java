@@ -70,9 +70,10 @@ public class calculator {
             if(del.charAt(i) == ']' && i != l-1)
             {
                 delimeters += del.substring(last,i);
-                delimeters += "]|";
+                delimeters += "]";
                 last = i+1;
 
+                break;
             }
 
             else if(i == l-1)
